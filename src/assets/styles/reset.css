@@ -1,0 +1,28 @@
+/*reset*/
+html{
+  box-sizing: border-box;
+  font-size: 16px;
+  font-family: tahoma,arial,"Hiragino Sans GB","微软雅黑","Microsoft Yahei",simsun,sans-serif;
+  color: #555;
+  line-height: 1;
+  -webkit-text-size-adjust: none;
+}
+
+*,:before,:after{
+  box-sizing: inherit;
+}
+
+
+body,ul {
+  margin:0;
+  padding: 0;
+  list-style: none;
+}
+
+a:hover, a:visited, a:link, a:active {
+    color:inherit;
+    text-decoration: none;
+}
+
+
+
