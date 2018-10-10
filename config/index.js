@@ -29,7 +29,7 @@ module.exports = {
           '^/login': '/login'
         }
       },
-      '/post': {
+      '/topost': {
         target: 'http://localhost:100',
         pathRewrite: {
           '^/post': '/post'
@@ -53,10 +53,28 @@ module.exports = {
           '^/delete': '/delete'
         }
       },
-      '/settings': {
+      '/tosettings': {
         target: 'http://localhost:100',
         pathRewrite: {
           '^/settings': '/settings'
+        }
+      },
+      '/recaptcha': {
+        target: 'http://localhost:100',
+        pathRewrite: {
+          '^/recaptcha': '/recaptcha'
+        }
+      },
+      '/forgot': {
+        target: 'http://localhost:100',
+        pathRewrite: {
+          '^/forgot': '/forgot'
+        }
+      },
+      '/change': {
+        target: 'http://localhost:100',
+        pathRewrite: {
+          '^/change': '/change'
         }
       }
     },
@@ -99,7 +117,7 @@ module.exports = {
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: './',
+    assetsPublicPath: '/大喵/工程/forum服务器',
 
     /**
      * Source Maps

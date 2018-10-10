@@ -12,7 +12,7 @@
       </div>
     </div>
     <div class="content">
-      {{comment.content}}
+      <div v-for="(it,i) of content" :key="i">{{it}}</div>
     </div>
     <div class="footer">
       <span class="share"  @click="sendInfo('https://vps.hnh.me/post/'+ (comment.pid || comment.id))">share</span>
@@ -25,6 +25,11 @@
 <script>
 import { mapState, mapMutations } from 'vuex'
 export default {
+  data () {
+    return {
+      list: []
+    }
+  },
   methods: {
     ...mapMutations(['sendInfo', 'setWaitFor']),
     deleteAction () {
@@ -36,9 +41,8 @@ export default {
         this.setWaitFor(this.comment.id)
       }
     }
-
   },
-  props: ['comment', 'floor'],
+  props: ['comment', 'content', 'floor'],
   computed: {
     ...mapState(['uname'])
   }

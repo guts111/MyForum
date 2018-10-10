@@ -1,7 +1,7 @@
 <template>
   <ul class="comments">
     <post-comment :comment="subject" class="sub-comment" :floor="1"></post-comment>
-    <post-comment :comment="it" class="com-comment" :floor="i+2" v-for="(it, i) of comments" :key="it.id"></post-comment>
+    <post-comment :content="it.content.split('\n')"  :comment="it" class="com-comment" :floor="i+2" v-for="(it, i) of comments" :key="it.id"></post-comment>
   </ul>
 </template>
 

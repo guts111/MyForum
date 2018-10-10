@@ -16,6 +16,7 @@
             </div>
             <input type="password" class="form-control" placeholder="Password" v-model="password">
           </div>
+          <recaptcha ref="child" :name="name" :src="src" @changeRecaptcha="changeRecaptcha" :showRecaptcha="showRecaptcha" @reload="reloadImg"></recaptcha>
         </div>
         <div class="footer">
           <button class="btn btn-success" @click="handleLR">确认</button>
@@ -64,23 +65,37 @@
 <script>
 import axios from 'axios'
 import { mapState, mapMutations } from 'vuex'
+import recaptcha from './recaptcha'
 export default {
   data () {
     return {
       name: '',
       password: '',
       confirmPw: '',
-      email: ''
+      email: '',
+      src: '',
+      showRecaptcha: false
     }
   },
   components: {
-    check
+    recaptcha
   },
   computed: {
     ...mapState(['clickL'])
   },
+  mounted () {
+    this.reloadImg()
+  },
   methods: {
     ...mapMutations(['changeClickL', 'sendInfo', 'hideAll', 'setUname']),
+    changeRecaptcha () {
+      this.showRecaptcha = !this.showRecaptcha
+    },
+    reloadImg () {
+      axios.get('/recaptcha').then(val => {
+        this.src = val.data
+      })
+    },
     checkEmail () {
       var e = this.email.trim()
       if (e === '') return true
@@ -105,16 +120,26 @@ export default {
         params.append('name', this.name)
         params.append('password', this.password)
         params.append('email', this.email)
+
         this.clickL ? this.sendInfo('正在登录...请稍等') : this.sendInfo('正在注册...请稍等')
         if (this.clickL) {
+          console.log(this.showRecaptcha)
+          params.append('needRecaptcha', this.showRecaptcha)
+          params.append('recaptcha', this.$refs.child.recaptcha.toUpperCase())
           axios.post('/login', params).then(val => {
             this.hideAll()
             this.hideAll()
             this.setUname(this.name)
             this.sendInfo('登录成功')
+            this.reloadImg()
             setTimeout(() => this.hideAll(), 700)
-          }, () => {
-            this.sendInfo('登录失败,用户名或密码不正确或账户已注销')
+          }, (err) => {
+            if (err.response.data === 'errorRecaptcha') {
+              this.reloadImg()
+              this.sendInfo('验证码不正确')
+            } else {
+              this.sendInfo('登录失败,用户名或密码不正确或账户已注销')
+            }
           })
         } else {
           axios.post('/reg', params).then(val => {
@@ -122,6 +147,7 @@ export default {
             this.hideAll()
             this.setUname(this.name)
             this.sendInfo('注册成功')
+            this.reloadImg()
             setTimeout(() => this.hideAll(), 700)
           }, () => {
             this.sendInfo('注册失败,用户名已存在')

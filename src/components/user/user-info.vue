@@ -53,14 +53,14 @@ export default {
     .info
       padding .5rem .5rem .5rem 1.5rem
       .user
-        font-size: 1.5rem
+        font-size: 1.25rem
         font-weight 700
         color #666
       .time
         color #777
-        font-size: 1.2rem
+        font-size: 1.1rem
       .content
         margin-top .5rem
         color #777
-        font-size: 0.8rem
+        font-size: 0.95rem
 </style>

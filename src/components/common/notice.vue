@@ -22,6 +22,7 @@ export default {
   methods: {
     ...mapMutations(['setUname', 'deleteComment', 'deletePost', 'hideAll', 'sendInfo', 'setWaitFor']),
     confirmAction () {
+      var params = new URLSearchParams()
       if (this.infoLR === '为了更好的发展,需要您的赞助') {
         this.setWaitFor(null)
         this.sendInfo('开个玩笑...')
@@ -29,9 +30,8 @@ export default {
       } else if (this.infoLR === '\uD83D\uDE1C 其实也能恢复,确认删除?') {
         this.setWaitFor(null)
         this.sendInfo('正在提交,请稍后...')
-        var params = new URLSearchParams()
         params.append('del', true)
-        axios.post('/settings', params).then(val => {
+        axios.post('/tosettings', params).then(val => {
           this.sendInfo('删除账户成功')
           this.setUname(null)
           document.cookie = 'uid=;Expires=' + new Date()
@@ -40,9 +40,25 @@ export default {
         }, () => {
           this.sendInfo('删除账户失败')
         })
+      } else if (this.infoLR === '点击确认会给您发送密钥邮件') {
+        var temp = this.waitFor
+        this.setWaitFor(null)
+        this.sendInfo('正在发送请求请稍后')
+        axios.get('/forgot/' + temp).then(val => {
+          this.hideAll()
+          this.hideAll()
+          this.sendInfo('邮件已发送,请查看邮箱')
+        }, err => {
+          if (err.response.data === 'not found') {
+            this.sendInfo('账户不存在')
+          } else if (err.response.data === 'not found email') {
+            this.sendInfo('邮箱未绑定')
+          }
+        })
+        console.log(this.waitFor)
+        // if ()
       } else {
         var id = this.waitFor
-        params = new URLSearchParams()
         var flag, withFloor
         if (this.infoLR === '请确认是否删除此回复') {
           flag = 'cid'

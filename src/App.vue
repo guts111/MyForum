@@ -115,7 +115,7 @@ export default{
       .footer
         color #ccc
         text-align center
-        height 2.5rem
-
+        height 3rem
+        line-height 3rem
 
 </style>

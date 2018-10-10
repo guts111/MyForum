@@ -57,7 +57,7 @@ export default {
       box-shadow 0 1px 1px 0px #0001
       border-radius .5rem
       padding 1.5rem .5rem .5rem
-      margin-bottom 1.2rem
+      margin-bottom .8rem
       transition  .3s
       position relative
       &:hover

@@ -53,7 +53,7 @@ export default {
         params.append('content', this.content)
         params.append('cate', this.cate)
         this.sendInfo('正在拼命提交')
-        axios.post('/post', params).then(val => {
+        axios.post('/topost', params).then(val => {
           this.addPosts(JSON.parse(val.data))
           this.sendInfo('提交成功')
           setTimeout(() => this.hideAll(), 700)

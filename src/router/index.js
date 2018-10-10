@@ -4,10 +4,12 @@ import home from '@/components/home'
 import post from '@/components/post/post'
 import user from '@/components/user/user'
 import postNew from '@/components/post/post-new'
-import settings from '@/components/common/settings.vue'
+import settings from '@/components/common/settings'
+import change from '@/components/login/change'
 Vue.use(Router)
 
 export default new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',
@@ -29,6 +31,10 @@ export default new Router({
       path: '/settings',
       name: 'settings',
       component: settings
+    }, {
+      path: '/change/:qs',
+      name: 'change',
+      component: change
     }
   ],
   scrollBehavior (to, from, savedPosition) {

@@ -20,20 +20,29 @@ export default {
     ...mapState(['Uuser', 'Ucomments', 'Uposts', 'loading'])
   },
   methods: {
-    ...mapMutations(['setUid', 'setUname', 'setApiInfo', 'setLoading'])
+    ...mapMutations(['setUid', 'setUname', 'setApiInfo', 'setLoading']),
+    getData () {
+      this.setLoading(true)
+      axios.get('/api/user.json?id=' + this.$route.params.id).then(val => {
+        val = JSON.parse(val.data)
+        this.setApiInfo({Uposts: val.posts, Ucomments: val.comments, Uuser: val.user})
+        this.setLoading(false)
+        this.setUname(val.uname)
+        this.setUid(val.uid)
+      }, () => {
+        this.setLoading(false)
+        this.$router.push('/')
+      })
+    }
   },
   mounted () {
-    this.setLoading(true)
-    axios.get('/api/user.json?id=' + this.$route.params.id).then(val => {
-      val = JSON.parse(val.data)
-      this.setApiInfo({Uposts: val.posts, Ucomments: val.comments, Uuser: val.user})
-      this.setLoading(false)
-      this.setUname(val.uname)
-      this.setUid(val.uid)
-    }, () => {
-      this.setLoading(false)
-      this.$router.push('/')
-    })
+    this.getData()
+  },
+  watch: {
+    '$route' (to, from) {
+      console.log(123)
+      this.getData()
+    }
   }
 }
 </script>

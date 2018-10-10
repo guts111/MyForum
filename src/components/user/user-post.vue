@@ -11,7 +11,7 @@
       <post-title :list='posts' v-show="picked"></post-title>
       <div class="no-subject" v-show="!picked && comments.length==0">该用户未发表过回复</div>
       <ul class="comments" v-show="!picked">
-        <post-comment :comment="it" v-for="it in comments" :key="it.id"></post-comment>
+        <post-comment :content="it.content.split('\n')" :comment="it" v-for="it in comments" :key="it.id"></post-comment>
       </ul>
     </div>
   </div>
