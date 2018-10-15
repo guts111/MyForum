@@ -42,9 +42,16 @@ export default {
       }
     }
   },
-  props: ['comment', 'content', 'floor'],
+  props: ['comment', 'floor'],
   computed: {
-    ...mapState(['uname'])
+    ...mapState(['uname']),
+    content () {
+      if (this.comment.content) {
+        return this.comment.content.split('\n')
+      } else {
+        return []
+      }
+    }
   }
 }
 </script>

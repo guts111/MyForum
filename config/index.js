@@ -117,7 +117,7 @@ module.exports = {
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/大喵/工程/forum服务器',
+    assetsPublicPath: '/',
 
     /**
      * Source Maps
