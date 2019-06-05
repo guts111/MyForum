@@ -1,6 +1,6 @@
 # Myforum 论坛
 
-> 在线访问地址 vps.hnh.me
+> 在线访问地址 bbs.hnh.me
 
 > v0.1.0 论坛功能基本都做完
 
